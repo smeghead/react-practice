@@ -9,3 +9,4 @@ services:
     command: sh -c "cd react-practice && yarn start"
     ports:
      - "3000:3000"
+     - "9005:9005"
