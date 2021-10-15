@@ -3,10 +3,9 @@ import './App.css';
 
 
 import React, {useState, useEffect} from 'react'
-import {firebaseApp, firestore } from './firebase/index'
+import {firestore } from './firebase/index'
 import { collection, query, getDocs } from "firebase/firestore";
 //import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -44,9 +43,11 @@ function App() {
           Learn React
         </a>
     {
+      loading ? 'loading...' :
       users.map((user, index) => {
-        return <p key={index}> name: {user.name}</p>
+        return <p key={index}> name a : {user.name}</p>
       })
+      
     }
       </header>
     </div>
