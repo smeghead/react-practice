@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-
 
 import React, {useState, useEffect} from 'react'
 import {firestore } from './firebase/index'
@@ -8,7 +6,6 @@ import { collection, query, getDocs } from "firebase/firestore";
 //import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -21,38 +18,27 @@ function App() {
         userList.push(doc.data());
       })
       setUsers(userList);
-      console.log(userList);
     }
 
     searchUsers();
-    setLoading(false);
   }, []);
+  const userListElement = () => {
+    if (users.length == 0) {
+      return <p>LOADING...</p>
+    } else {
+      return users.map((user, index) => {
+        return <p key={index}> name: {user.name}</p>
+      })
+    }
+  };
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-    {
-      loading ? 'loading...' :
-      users.map((user, index) => {
-        return <p key={index}> name a : {user.name}</p>
-      })
-      
-    }
+        { userListElement() }
       </header>
     </div>
   );
 }
 
 export default App;
-// vim: set expandtab ts=2 sts=2 sw=2:
+// vim: set expandtab ts=2 sts=2 sw=2 :
