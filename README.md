@@ -9,7 +9,11 @@ $ docker-compose build
 $ docker-compose run --rm web sh -c "create-react-app react-practice --typescript"
 ```
 
+### create project ###
 
+```bash
+$ docker-compose run --rm web sh
+```
 
 ```bash
 $ cd react-practice
