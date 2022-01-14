@@ -4,16 +4,15 @@ import React, {useState } from 'react'
 
 
 function App() {
-  const [display, setDisplay] = useState('0');
+  const [display, setDisplay] = useState('');
   const [buffer, setBuffer] = useState([]);
   const [displayIsEmpty, setDisplayIsEmpty] = useState(true);
-  const [bufferIsEmpty, setBufferIsEmpty] = useState(true);
 
   const update = (val: string) => {
     const buf = buffer;
     switch (val) {
       case '+':
-        if (bufferIsEmpty) {
+        if (buf.length === 0) {
           buf.push(display);
         }
         buf.push(val);
@@ -26,7 +25,6 @@ function App() {
         const answer = eval(buffer.join(''));
         setDisplay(answer);
         setDisplayIsEmpty(true);
-        setBufferIsEmpty(false);
         break;
       default:
         setDisplay(displayIsEmpty ? val : display + val);
