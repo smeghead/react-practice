@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, {useReducer } from 'react'
-import Digit from './digit/digit.tsx'
+import Display from './digit/display.tsx'
 
 const stateDefault = {
   stack: [],
@@ -39,10 +39,7 @@ function App() {
         stack:
         <span id="stack">{calcState.stack.join(' ')}</span>
       </div>
-      <div>
-        buffer:
-        <span id="buffer">{calcState.buffer}</span>
-      </div>
+      <Display n={calcState.buffer} />
       <div>
         <input type="button" value="0" onClick={() => dispatch('0')} />
         <input type="button" value="1" onClick={() => dispatch('1')} />
@@ -58,19 +55,6 @@ function App() {
         <input type="button" value="+" onClick={() => dispatch('+')} />
         <input type="button" value="=" onClick={() => dispatch('=')} />
 
-      </div>
-      <div style={{backgroundColor: 'DimGray'}}>
-        <Digit n={0} />
-        <Digit n={1} />
-        <Digit n={2} />
-        <Digit n={3} />
-        <Digit n={4} />
-        <Digit n={5} />
-        <Digit n={6} />
-        <Digit n={7} />
-        <Digit n={8} />
-        <Digit n={9} />
-        <br style={{clear: 'both'}} />
       </div>
     </div>
   );
