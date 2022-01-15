@@ -1,6 +1,7 @@
 import './App.css';
 
 import React, {useReducer } from 'react'
+import Digit from './digit/digit.tsx'
 
 const stateDefault = {
   stack: [],
@@ -57,6 +58,19 @@ function App() {
         <input type="button" value="+" onClick={() => dispatch('+')} />
         <input type="button" value="=" onClick={() => dispatch('=')} />
 
+      </div>
+      <div style={{backgroundColor: 'DimGray'}}>
+        <Digit n={0} />
+        <Digit n={1} />
+        <Digit n={2} />
+        <Digit n={3} />
+        <Digit n={4} />
+        <Digit n={5} />
+        <Digit n={6} />
+        <Digit n={7} />
+        <Digit n={8} />
+        <Digit n={9} />
+        <br style={{clear: 'both'}} />
       </div>
     </div>
   );
