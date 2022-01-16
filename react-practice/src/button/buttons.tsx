@@ -1,10 +1,10 @@
-import React, {useState, useEffect } from 'react'
+import React from 'react'
 
 const buttonsStyle = {
   margin: '5px auto',
   width: 300,
   backgroundColor: '#333',
-  textAlign: 'center',
+  textAlign: 'center' as 'center',
 };
 
 const buttonStyle = {
@@ -21,7 +21,7 @@ const functionButtonStyle = {
   backgroundColor: 'DimGray',
 };
 
-const Buttons = props => {
+const Buttons = (props: any) => {
   console.log('Buttons', props);
   
   return (

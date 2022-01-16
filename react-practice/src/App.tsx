@@ -1,16 +1,21 @@
 import './App.css';
 
 import React, {useReducer } from 'react'
-import Display from './digit/display.tsx'
-import Buttons from './button/buttons.tsx'
+import Display from './digit/display'
+import Buttons from './button/buttons'
 
-const stateDefault = {
+type AppState = {
+  stack: string[];
+  buffer: string;
+  waitingNumberInput: boolean;
+}
+
+const stateDefault: AppState = {
   stack: [],
   buffer: '',
   waitingNumberInput: true,
 };
-const update = (state, val: string) => {
-  console.log('==update==');
+const update = (state: AppState, val: string) => {
   const stack = state.stack.slice(0);
   switch (val) {
     case '+':
@@ -18,7 +23,6 @@ const update = (state, val: string) => {
         stack.push(state.buffer);
       }
       stack.push(val);
-      console.log(JSON.stringify(stack));
       return {stack: stack, buffer: state.buffer, waitingNumberInput: true};
     case '=':
       stack.push(state.buffer);
@@ -30,7 +34,7 @@ const update = (state, val: string) => {
   }
 };
 
-function App() {
+const App = () => {
   const [calcState, dispatch] = useReducer(update, stateDefault);
 
   return (

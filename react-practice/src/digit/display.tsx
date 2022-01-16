@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react'
-import Digit from './digit.tsx'
+import Digit from './digit'
 
 const displayStyle = {
   margin: '5px auto',
@@ -7,20 +7,18 @@ const displayStyle = {
   height: 100,
   backgroundColor: '#333',
 };
-const parseIndex = (n) => {
+const parseIndex = (n: string) => {
   if (n === ' ') {
     return 11;
   }
   if (n === '.') {
     return 10;
   }
-  console.log('parseIndex', n);
-  console.log('parseIndex', parseInt(n, 10));
   return parseInt(n, 10);
 }
 
-const Display = props => {
-  const [num, setNum] = useState(props.n)
+const Display = (props: {n: string}) => {
+  const [num, setNum] = useState<string>(props.n)
   
   useEffect(() => {
     setNum(props.n);

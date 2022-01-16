@@ -15,27 +15,25 @@ const figures = [
   [false, false, false, false, false, false, false, false],
 ];
 
-const digitStyle = {
+const digitStyle: { [key: string]: string|number } = {
   float: 'left',
   margin: 5,
 };
-const barContainarStyle = {
+const barContainarStyle: { [key: string]: string|number } = {
   width: 40, 
   height: 90, 
   backgroundColor: '#333', 
   position: 'relative',
 };
-const barStyle = {
+const barStyle: { [key: string]: string|number } = {
   position: 'absolute',
   display: 'inline-block',
 };
 
-const Digit = props => {
-  console.log('Digit', props);
-  const [num, setNum] = useState(props.n)
+const Digit = (props: {n:number}) => {
+  const [num, setNum] = useState<number>(props.n)
   
   useEffect(() => {
-    console.log('useEffect', props);
     setNum(props.n);
   }, [props]);
 
