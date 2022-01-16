@@ -2,6 +2,7 @@ import './App.css';
 
 import React, {useReducer } from 'react'
 import Display from './digit/display.tsx'
+import Buttons from './button/buttons.tsx'
 
 const stateDefault = {
   stack: [],
@@ -40,22 +41,7 @@ function App() {
         <span id="stack">{calcState.stack.join(' ')}</span>
       </div>
       <Display n={calcState.buffer} />
-      <div>
-        <input type="button" value="0" onClick={() => dispatch('0')} />
-        <input type="button" value="1" onClick={() => dispatch('1')} />
-        <input type="button" value="2" onClick={() => dispatch('2')} />
-        <input type="button" value="3" onClick={() => dispatch('3')} />
-        <input type="button" value="4" onClick={() => dispatch('4')} />
-        <input type="button" value="5" onClick={() => dispatch('5')} />
-        <input type="button" value="6" onClick={() => dispatch('6')} />
-        <input type="button" value="7" onClick={() => dispatch('7')} />
-        <input type="button" value="8" onClick={() => dispatch('8')} />
-        <input type="button" value="9" onClick={() => dispatch('9')} />
-        <input type="button" value="." onClick={() => dispatch('.')} />
-        <input type="button" value="+" onClick={() => dispatch('+')} />
-        <input type="button" value="=" onClick={() => dispatch('=')} />
-
-      </div>
+      <Buttons dispatch={dispatch} />
     </div>
   );
 }
