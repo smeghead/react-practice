@@ -1,6 +1,24 @@
 import React, {useState, useEffect } from 'react'
 import Digit from './digit.tsx'
 
+const displayStyle = {
+  margin: '5px auto',
+  width: 300,
+  height: 100,
+  backgroundColor: '#333',
+};
+const parseIndex = (n) => {
+  if (n === ' ') {
+    return 11;
+  }
+  if (n === '.') {
+    return 10;
+  }
+  console.log('parseIndex', n);
+  console.log('parseIndex', parseInt(n, 10));
+  return parseInt(n, 10);
+}
+
 const Display = props => {
   const [num, setNum] = useState(props.n)
   
@@ -9,13 +27,13 @@ const Display = props => {
   }, [props]);
 
   return (
-    <div className="Display" style={{margin: '5px auto', width: 300, height: 100, backgroundColor: 'DimGray'}}>
-      <Digit n={num.toString().padStart(6, '0').substring(0, 1)} />
-      <Digit n={num.toString().padStart(6, '0').substring(1, 2)} />
-      <Digit n={num.toString().padStart(6, '0').substring(2, 3)} />
-      <Digit n={num.toString().padStart(6, '0').substring(3, 4)} />
-      <Digit n={num.toString().padStart(6, '0').substring(4, 5)} />
-      <Digit n={num.toString().padStart(6, '0').substring(5, 6)} />
+    <div className="Display" style={displayStyle}>
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(0, 1))} />
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(1, 2))} />
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(2, 3))} />
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(3, 4))} />
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(4, 5))} />
+      <Digit n={parseIndex(num.toString().padStart(6, ' ').substring(5, 6))} />
       <br style={{clear: 'both'}} />
     </div>
   );
