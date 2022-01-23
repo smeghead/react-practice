@@ -43,6 +43,23 @@ const Line = (props: {buffer: string}) => {
         <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(10)}} />
         <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(11)}} />
         <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(12)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(13)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(14)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(15)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(16)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(17)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(18)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(19)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(20)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(21)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(22)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(23)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(24)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(25)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(26)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(27)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(28)}} />
+        <div className="dot-off" style={{...dotStyle, backgroundColor: lightning(29)}} />
 
     </div>
   );

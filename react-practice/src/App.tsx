@@ -4,6 +4,7 @@ import React, {useReducer, useState} from 'react'
 import Display from './digit/display'
 import Buttons from './button/buttons'
 import Board from './board/board'
+import Letter from './board/letter'
 
 
 const init = async function() {
@@ -15,7 +16,7 @@ const init = async function() {
   })
   console.log('loaded', bdf.length, new Date())
   const font: any = {}
-  let letter: any = {encoding: '', dwidth: [], bbx: [], bitmap: []}
+  let letter = new Letter(0, [], [], [])
   let bitmap: any[] = []
   let bitmapLines = false
   bdf.split(/\n/).forEach(line => {
@@ -25,7 +26,7 @@ const init = async function() {
               bitmapLines = false;
               break
           case 'ENCODING':
-              letter.encoding = columns[1]
+              letter.encoding = Number(columns[1])
               break
           case 'DWIDTH':
               letter.dwidth = [Number(columns[1]), Number(columns[1])]
@@ -37,15 +38,13 @@ const init = async function() {
               bitmapLines = true
               break
           case 'ENDCHAR':
-              letter.bitmap = bitmap
-              font[letter.encoding] = JSON.parse(JSON.stringify(letter))
-              letter = {}
-              bitmap = []
+              font[letter.encoding.toString()] = letter
+              letter = new Letter(0, [], [], [])
               break
           default:
               if (bitmapLines) {
                   //console.log('BITMAP add', columns[0])
-                  bitmap.push(columns[0])
+                  letter.bitmap.push(columns[0])
               }
       }
   })
