@@ -1,8 +1,65 @@
 import './App.css';
 
-import React, {useReducer } from 'react'
+import React, {useReducer, useState} from 'react'
 import Display from './digit/display'
 import Buttons from './button/buttons'
+import Board from './board/board'
+
+
+const init = async function() {
+  let bdf = '';
+  await fetch('misaki_gothic.bdf')
+  .then(response => response.text())
+  .then(data => {
+      bdf = data;
+  })
+  console.log('loaded', bdf.length, new Date())
+  const font: any = {}
+  let letter: any = {encoding: '', dwidth: [], bbx: [], bitmap: []}
+  let bitmap: any[] = []
+  let bitmapLines = false
+  bdf.split(/\n/).forEach(line => {
+      const columns = line.split(/\s+/);
+      switch (columns[0]) {
+          case 'STARTCHAR':
+              bitmapLines = false;
+              break
+          case 'ENCODING':
+              letter.encoding = columns[1]
+              break
+          case 'DWIDTH':
+              letter.dwidth = [Number(columns[1]), Number(columns[1])]
+              break
+          case 'BBX':
+              letter.bbx = [Number(columns[1]), Number(columns[2]), Number(columns[3]), Number(columns[4])]
+              break
+          case 'BITMAP':
+              bitmapLines = true
+              break
+          case 'ENDCHAR':
+              letter.bitmap = bitmap
+              font[letter.encoding] = JSON.parse(JSON.stringify(letter))
+              letter = {}
+              bitmap = []
+              break
+          default:
+              if (bitmapLines) {
+                  //console.log('BITMAP add', columns[0])
+                  bitmap.push(columns[0])
+              }
+      }
+  })
+  //console.log(font)
+  console.log('font initialized', new Date(), Object.keys(font));
+
+  return font
+}
+let font = {}
+init().then(f => {
+  font = f
+});
+
+
 
 type AppState = {
   stack: string[];
@@ -36,6 +93,7 @@ const update = (state: AppState, val: string) => {
 
 const App = () => {
   const [calcState, dispatch] = useReducer(update, stateDefault);
+  const [displayString, setDisplayString] = useState('');
 
   return (
     <div className="App">
@@ -46,6 +104,8 @@ const App = () => {
       </div>
       <Display n={calcState.buffer} />
       <Buttons dispatch={dispatch} />
+      <input type="text" onChange={e => setDisplayString(e.target.value)} />
+      <Board str={displayString} font={font} />
     </div>
   );
 }
