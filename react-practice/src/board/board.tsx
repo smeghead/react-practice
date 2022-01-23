@@ -5,58 +5,38 @@ import Letter from './letter'
 
 const boardStyle = {
   margin: '5px auto',
-  width: 300,
+  width: 500,
   height: 100,
   backgroundColor: 'black',
 };
 
 
 const generateBuffer = (str: string, font: {[name: string]: Letter}) => {
-    // str = 'ab';
-    // const bitmap = ['60', 'A0', 'A0', '60']; // a
-    // const bitmap = ['60', '80', '80', '60']; // c
-    
     const buffer = ['', '', '', '', '', '', '', '', '', '']
     if (!font) {
         return buffer;
     }
     str.split('').forEach(s => {
-        const charCode: string = s.charCodeAt(0).toString()
-        if (! (font[charCode])) {
-          console.log('no kye', charCode, font[charCode])
-          console.log(font)
-          return
-        }
-        const letter = font[charCode]
-        // const bitmap = ['80', '80', 'C0', 'A0', 'A0', 'C0'];  // b
-        // const bbx = [3, 6, 0, 0]
-        // const dwidth = [4, 0]
-        console.log(s, letter);
-
-        let i = 0
-        for (; i < letter.bbx[3] + 2; i++) {
-            buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
-        }
-        letter.bitmap.concat().reverse().forEach(dex => {
-            // console.log(dex)
-            if (letter.dwidth[0] === 4) {
-              buffer[i++] += parseInt(dex, 16).toString(2).substring(0, 4)
-            } else {
-              const bit8 = parseInt(dex, 16).toString(2).substring(0, 8).padStart(8, '0')
-
-              console.log(dex, bit8, bit8.substring(4, 8), bit8.substring(0, 4))
-              buffer[i++] += bit8.substring(0, 8) //+ bit8.substring(0, 4)
-              // bit8.substring(2, 4) +
-              // bit8.substring(0, 2) +
-              // bit8.substring(6, 8) +
-              // bit8.substring(4, 6)
-            }
-            // console.log(buffer)
-        })
-        for (; i < 10; i++) {
-          buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
+      const charCode: string = s.charCodeAt(0).toString()
+      if (!(font[charCode])) {
+        console.log('no kye', charCode, font[charCode])
+        console.log(font)
+        return
       }
-  })
+      const letter = font[charCode]
+      console.log(s, letter);
+
+      let i = 0
+      for (; i < letter.bbx[3] + 2; i++) {
+        buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
+      }
+      letter.bitmap.concat().reverse().forEach(dex => {
+        buffer[i++] += parseInt(dex, 16).toString(2).padStart(8, '0').substring(0, letter.dwidth[0])
+      })
+      for (; i < 10; i++) {
+        buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
+      }
+    })
     console.log('buffer initialized', buffer);
 
     return buffer;
