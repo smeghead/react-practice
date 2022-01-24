@@ -2,14 +2,12 @@ import React, {useState, useEffect } from 'react'
 import Line from './line'
 import Letter from './letter'
 
-
 const boardStyle = {
   margin: '5px auto',
   width: 500,
   height: 100,
   backgroundColor: 'black',
 };
-
 
 const generateBuffer = (str: string, font: {[name: string]: Letter}) => {
     const buffer = ['', '', '', '', '', '', '', '', '', '']
@@ -26,17 +24,9 @@ const generateBuffer = (str: string, font: {[name: string]: Letter}) => {
       }
       const letter = font[charCode]
       // console.log(s, letter);
-
-      let i = 0
-      for (; i < letter.bbx[3] + 2; i++) {
-        buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
-      }
-      letter.bitmap.concat().reverse().forEach(dex => {
-        buffer[i++] += parseInt(dex, 16).toString(2).padStart(8, '0').substring(0, letter.dwidth[0])
+      letter.getBuffer().forEach((line: string, i: number) => {
+        buffer[i] += line
       })
-      for (; i < 10; i++) {
-        buffer[i] += letter.dwidth[0] === 4 ? '0000' : '00000000';
-      }
     })
     // console.log('buffer initialized', buffer);
 
@@ -62,16 +52,7 @@ const Display = (props: {str: string, font: {[name: string]: Letter}}) => {
 
   return (
     <div className="Board" style={boardStyle}>
-        <Line buffer={buffer[9]} offset={offset} />
-        <Line buffer={buffer[8]} offset={offset} />
-        <Line buffer={buffer[7]} offset={offset} />
-        <Line buffer={buffer[6]} offset={offset} />
-        <Line buffer={buffer[5]} offset={offset} />
-        <Line buffer={buffer[4]} offset={offset} />
-        <Line buffer={buffer[3]} offset={offset} />
-        <Line buffer={buffer[2]} offset={offset} />
-        <Line buffer={buffer[1]} offset={offset} />
-        <Line buffer={buffer[0]} offset={offset} />
+      {[...Array(10).keys()].reverse().map(i => <Line key={i} buffer={buffer[i]} offset={offset} />)}
     </div>
   );
 }
